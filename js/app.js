@@ -76,7 +76,7 @@ const carritoHTML = () => {
     limpiarHTML()
     //recorrer el HTML
     articulosCarrito.forEach((curso) => {
-        const { imagen, titulo, precio, id } = curso
+        const { imagen, titulo, precio, cantidad, id } = curso
         const row = document.createElement('tr')
         row.innerHTML = `
         <td>
@@ -84,6 +84,7 @@ const carritoHTML = () => {
         </td>
         <td>${titulo}</td>
         <td>${precio}</td>
+        <td>${cantidad}</td>
         <td>
             <a href="#" class="borrar-curso" data-id="${id}"> X </a>
         </td>
