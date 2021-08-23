@@ -9,6 +9,11 @@ const cargarCarrito = () => {
     listaCursos.addEventListener('click', addCurso)
 
     carrito.addEventListener('click', eliminarCurso)
+    //muestra los cursos del local storage
+    document.addEventListener('DOMContentLoaded', () => {
+        articulosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+        carritoHTML()
+    })
 
     vaciarCarrito.addEventListener('click', () => {
         articulosCarrito = []//resetea el array
@@ -76,7 +81,7 @@ const carritoHTML = () => {
     limpiarHTML()
     //recorrer el HTML
     articulosCarrito.forEach((curso) => {
-        const { imagen, titulo, precio, cantidad, id } = curso
+        const { imagen, titulo, precio, id } = curso
         const row = document.createElement('tr')
         row.innerHTML = `
         <td>
@@ -84,7 +89,6 @@ const carritoHTML = () => {
         </td>
         <td>${titulo}</td>
         <td>${precio}</td>
-        <td>${cantidad}</td>
         <td>
             <a href="#" class="borrar-curso" data-id="${id}"> X </a>
         </td>
@@ -93,8 +97,13 @@ const carritoHTML = () => {
         //del carrito en el tbody
         contenedorCarrito.appendChild(row);
     })
+    // add shopping cart to storage
+    sincronizarStorage()
 }
 
+function sincronizarStorage() {
+    localStorage.setItem('carrito', JSON.stringify(articulosCarrito))
+}
 
 //elimina los cursos del tbody
 const limpiarHTML = () => {
